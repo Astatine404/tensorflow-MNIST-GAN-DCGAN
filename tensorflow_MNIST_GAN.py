@@ -180,6 +180,7 @@ for epoch in range(train_epoch):
     G_losses = []
     D_losses = []
     epoch_start_time = time.time()
+	iter_n=0;
     for iter in range(train_set.shape[0] // batch_size):
         # update discriminator
         x_ = train_set[iter*batch_size:(iter+1)*batch_size]
@@ -192,6 +193,9 @@ for epoch in range(train_epoch):
         z_ = np.random.normal(0, 1, (batch_size, 100))
         loss_g_, _ = sess.run([G_loss, G_optim], {z: z_, drop_out: 0.3})
         G_losses.append(loss_g_)
+		
+		print('Iteration '+iter_n)
+		iter_n++
 
     epoch_end_time = time.time()
     per_epoch_ptime = epoch_end_time - epoch_start_time
